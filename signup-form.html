@@ -49,14 +49,27 @@
       <div class="dkh-form-field">
         <fieldset>
           <label for="username">Email</label>
-          <input class="dkh-form-field__input" name="email" type="email" id="email">
+          <input
+            class="dkh-form-field__input"
+            name="email"
+            type="email"
+            id="email"
+            required
+          >
         </fieldset>
         <div class="dkh-form-field__messages"></div>
       </div>
       <div class="dkh-form-field">
         <fieldset>
           <label for="password">Password</label>
-          <input class="dkh-form-field__input" name="password" type="password" id="password">
+          <input
+            class="dkh-form-field__input"
+            name="password"
+            type="password"
+            id="password"
+            required
+            minlength="10"
+          >
         </fieldset>
         <div class="dkh-form-field__messages"></div>
       </div>
@@ -73,9 +86,62 @@
     */
     function handleSignupFormSubmit(e) {
       // prevent default browser behaviour
-      // TODO: add link to mdn docs
       e.preventDefault();
-      console.log('submit', e)
+
+      const formDataEntries = new FormData(signupForm).entries();
+      const { email, password } = Object.fromEntries(formDataEntries);
+
+      const {isEmailValid, emailErrorMessage} = validateEmail(email);
+      const {isPasswordValid, passowrdErrorMessage} = validatePassword(password);
+
+      if (!isEmailValid) {
+        // show email error message to user
+      }
+
+      if (!isPasswordValid) {
+        // show password error message to user
+      }
+    }
+
+    /**
+    * validate email
+    */
+    function validateEmail(email) {
+      let isEmailVaild = true;
+      let emailErrorMessage = '';
+
+      // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+      const isValidEmail = /^\S+@\S+$/g
+      if (!isValidEmail.test(email)) {
+        emailErrorMessage = 'Please enter a valid email';
+        isValidEmail = false;
+      }
+
+      return { isEmailValid, emailErrorMessage };
+    }
+
+    /**
+    * validate passowrd
+    */
+    function validatePassword(password) {
+      let isPasswordValid = true;
+      let passwordErrorMessage = '';
+
+      const hasCapitalLetter = /[A-Z]/g;
+      if (!hasCapitalLetter.test(password)) {
+        isPasswordValid = false;
+        passwordErrorMessage = 'Please use at least one capital letter.';
+        // returning here since we don't need to conduct additional validations if we've already failed one
+        return { isPasswordValid, passowrdErrorMessage };
+      }
+
+      const hasNumber = /\d/g;
+      if (!hasNumber.test(password)) {
+        isPasswordValid = false;
+        passwordErrorMessage = 'Please use at least one number.';
+      }
+
+      return { isPasswordValid, passowrdErrorMessage };
     }
   </script>
 </body>
