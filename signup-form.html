@@ -91,14 +91,14 @@
       const formDataEntries = new FormData(signupForm).entries();
       const { email, password } = Object.fromEntries(formDataEntries);
 
-      const {isEmailValid, emailErrorMessage} = validateEmail(email);
-      const {isPasswordValid, passowrdErrorMessage} = validatePassword(password);
+      const emailErrorMessage = validateEmail(email);
+      const passowrdErrorMessage = validatePassword(password);
 
-      if (!isEmailValid) {
+      if (!emailErrorMessage) {
         // show email error message to user
       }
 
-      if (!isPasswordValid) {
+      if (passowrdErrorMessage) {
         // show password error message to user
       }
     }
@@ -107,41 +107,36 @@
     * validate email
     */
     function validateEmail(email) {
-      let isEmailVaild = true;
-      let emailErrorMessage = '';
+      let errorMessage = '';
 
       // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
       const isValidEmail = /^\S+@\S+$/g
       if (!isValidEmail.test(email)) {
-        emailErrorMessage = 'Please enter a valid email';
-        isValidEmail = false;
+        errorMessage = 'Please enter a valid email';
       }
 
-      return { isEmailValid, emailErrorMessage };
+      return errorMessage;
     }
 
     /**
     * validate passowrd
     */
     function validatePassword(password) {
-      let isPasswordValid = true;
-      let passwordErrorMessage = '';
+      let errorMessage = '';
 
       const hasCapitalLetter = /[A-Z]/g;
       if (!hasCapitalLetter.test(password)) {
-        isPasswordValid = false;
-        passwordErrorMessage = 'Please use at least one capital letter.';
-        // returning here since we don't need to conduct additional validations if we've already failed one
-        return { isPasswordValid, passowrdErrorMessage };
+        errorMessage = 'Please use at least one capital letter.';
+        // we can return here since we don't need to conduct additional validations if we've already failed one
+        return errorMessage;
       }
 
       const hasNumber = /\d/g;
       if (!hasNumber.test(password)) {
-        isPasswordValid = false;
-        passwordErrorMessage = 'Please use at least one number.';
+        errorMessage = 'Please use at least one number.';
       }
 
-      return { isPasswordValid, passowrdErrorMessage };
+      return errorMessage;
     }
   </script>
 </body>
