@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Signup Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
   <style>
     /* layout */
     body {
@@ -15,8 +17,9 @@
     }
 
     aside {
-      display: none; /* hide on mobile only, see desktop styles below */
-      background-color: rebeccapurple;
+      display: none;
+      /* hide on mobile only, see desktop styles below */
+      background-color: #5e72e4;
     }
 
     main {
@@ -25,9 +28,124 @@
       align-items: center;
     }
 
+    /* form */
+    form {
+      width: 400px;
+      box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+      border-radius: 4px;
+    }
+
+    .dkh-form-header {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      padding-bottom: 48px;
+    }
+
+    .dkh-form-header small,
+    .dkh-form-body small {
+      display: block;
+      margin-bottom: 16px;
+      color: #8898aa;
+    }
+
+    .dkh-form-header__social-wrapper {
+      display: flex;
+    }
+
+    .dkh-form-header__social-wrapper .dkh-btn-github {
+      margin-right: 16px;
+    }
+
+    .dkh-form-body {
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      padding: 48px 48px 24px;
+    }
+
+    .dkh-form-body,
+    .dkh-form-footer {
+      background-color: #f4f5f7;
+    }
+
+    fieldset {
+      border: none;
+      width: 100%;
+    }
+
+    .dkh-form-field {
+      width: 100%;
+    }
+
+    .dkh-form-field__input {
+      width: 275px;
+      box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
+      border: 1px solid white;
+      border-radius: 4px;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    .dkh-form-field__input:focus {
+      outline: none;
+      border: 1px solid #5e72e4;
+    }
+
+    .dkh-form-footer {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 48px;
+    }
+
     /* components */
     .dkh-btn {
       cursor: pointer;
+      display: inline-block;
+      font-weight: 600;
+      color: #525f7f;
+      text-align: center;
+      vertical-align: middle;
+      user-select: none;
+      background-color: white;
+      border: 1px solid transparent;
+      padding: 12px 24px;
+      border-radius: 4px;
+      transition: all .15s ease;
+      box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+      text-transform: uppercase;
+    }
+
+    .dkh-btn:hover {
+      background-color: #ececec;
+    }
+
+    .dkh-btn-primary {
+      background-color: #5e72e4;
+      border-color: #5e72e4;
+      color: white;
+    }
+
+    .dkh-btn-primary:hover {
+      background-color: #324cdd;
+    }
+
+    .dkh-btn-icon {
+      display: flex;
+      justify-content: center;
+    }
+
+    .dkh-btn-icon i {
+      margin-right: 12px;
+    }
+
+    .dkh-btn-github i {
+      color: #172459;
+    }
+
+    .dkh-btn-twitter i {
+      color: #1ca2f1;
     }
 
     /* desktop styles */
@@ -42,38 +160,46 @@
     }
   </style>
 </head>
+
 <body>
   <aside></aside>
   <main>
     <form id="dkh-signup-form">
-      <div class="dkh-form-field">
-        <fieldset>
-          <label for="username">Email</label>
-          <input
-            class="dkh-form-field__input"
-            name="email"
-            type="email"
-            id="email"
-            required
-          >
-        </fieldset>
-        <div class="dkh-form-field__messages"></div>
+      <div class="dkh-form-header">
+        <div>
+          <small>Sign up with</small>
+          <div class="dkh-form-header__social-wrapper">
+            <button class="dkh-btn dkh-btn-icon dkh-btn-github">
+              <i class="fab fa-github fa-lg"></i>
+              Github
+            </button>
+            <button class="dkh-btn dkh-btn-icon dkh-btn-twitter">
+              <i class="fab fa-twitter fa-lg"></i>
+              Twitter
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="dkh-form-field">
-        <fieldset>
-          <label for="password">Password</label>
-          <input
-            class="dkh-form-field__input"
-            name="password"
-            type="password"
-            id="password"
-            required
-            minlength="10"
-          >
-        </fieldset>
-        <div class="dkh-form-field__messages"></div>
+      <div class="dkh-form-body">
+        <small>Or sign in with email and password</small>
+        <div class="dkh-form-field">
+          <fieldset>
+            <!-- <label for="username">Email</label> -->
+            <input autofocus class="dkh-form-field__input" name="email" type="email" id="email" required placeholder="Email">
+          </fieldset>
+          <div class="dkh-form-field__messages"></div>
+        </div>
+        <div class="dkh-form-field">
+          <fieldset>
+            <!-- <label for="password">Password</label> -->
+            <input class="dkh-form-field__input" name="password" type="password" id="password" required minlength="10" placeholder="Password">
+          </fieldset>
+          <div class="dkh-form-field__messages"></div>
+        </div>
       </div>
-      <button class="dkh-btn" type="submit">Create Account</button>
+      <div class="dkh-form-footer">
+        <button class="dkh-btn dkh-btn-primary" type="submit">Sign Up</button>
+      </div>
     </form>
   </main>
   <script>
@@ -140,4 +266,5 @@
     }
   </script>
 </body>
+
 </html>
