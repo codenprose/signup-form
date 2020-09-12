@@ -17,15 +17,25 @@
     }
 
     aside {
-      display: none;
       /* hide on mobile only, see desktop styles below */
-      background-color: #5e72e4;
+      display: none;
+      background-image: url("https://dhhl0lw17ed7f.cloudfront.net/static/ice-cream.svg");
+      background-size: cover;
+      background-position: 50%;
+      width: 100%;
+      height: 100%;
     }
 
     main {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+
+    .dkh-tagline {
+      margin-bottom: 24px;
+      font-size: 20px;
     }
 
     /* form */
@@ -117,6 +127,10 @@
       text-transform: uppercase;
     }
 
+    .dkh-btn:focus {
+      outline: none;
+    }
+
     .dkh-btn:hover {
       background-color: #ececec;
     }
@@ -164,16 +178,17 @@
 <body>
   <aside></aside>
   <main>
+    <div class="dkh-tagline">#nolibs - vanilla html, css, and js 😋</div>
     <form id="dkh-signup-form">
       <div class="dkh-form-header">
         <div>
           <small>Sign up with</small>
           <div class="dkh-form-header__social-wrapper">
-            <button class="dkh-btn dkh-btn-icon dkh-btn-github">
+            <button type="button" class="dkh-btn dkh-btn-icon dkh-btn-github">
               <i class="fab fa-github fa-lg"></i>
               Github
             </button>
-            <button class="dkh-btn dkh-btn-icon dkh-btn-twitter">
+            <button type="button" class="dkh-btn dkh-btn-icon dkh-btn-twitter">
               <i class="fab fa-twitter fa-lg"></i>
               Twitter
             </button>
