@@ -72,7 +72,7 @@
       flex-direction: column;
       display: flex;
       align-items: center;
-      padding: 48px 48px 24px;
+      padding: 48px 48px 16px;
     }
 
     .dkh-form-body,
@@ -83,14 +83,16 @@
     fieldset {
       border: none;
       width: 100%;
+      padding: 0;
     }
 
     .dkh-form-field {
       width: 100%;
+      margin-bottom: 8px;
     }
 
     .dkh-form-field__input {
-      width: 275px;
+      width: 100%;
       padding: 12px;
       box-sizing: border-box;
       box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
@@ -101,6 +103,13 @@
     .dkh-form-field__input:focus {
       outline: none;
       border: 1px solid #3a86ff;
+    }
+
+    .dkh-form-field__messages {
+      margin-top: 4px;
+      color: red;
+      font-size: 14px;
+      height: 16px;
     }
 
     .dkh-form-footer {
@@ -198,16 +207,16 @@
       <div class="dkh-form-body">
         <small>Or sign in with email and password</small>
         <div class="dkh-form-field">
-          <fieldset>
-            <input autofocus class="dkh-form-field__input" name="email" type="email" id="email" required placeholder="Email">
+          <fieldset class="email">
+            <input autofocus class="dkh-form-field__input" type="text" name="email" id="email" placeholder="Email">
+            <div class="dkh-form-field__messages"></div>
           </fieldset>
-          <div class="dkh-form-field__messages"></div>
         </div>
         <div class="dkh-form-field">
-          <fieldset>
-            <input class="dkh-form-field__input" name="password" type="password" id="password" required minlength="10" placeholder="Password">
+          <fieldset class="password">
+            <input class="dkh-form-field__input" name="password" type="password" id="password" placeholder="Password">
+            <div class="dkh-form-field__messages"></div>
           </fieldset>
-          <div class="dkh-form-field__messages"></div>
         </div>
       </div>
       <div class="dkh-form-footer">
@@ -233,12 +242,18 @@
       const emailErrorMessage = validateEmail(email);
       const passowrdErrorMessage = validatePassword(password);
 
-      if (!emailErrorMessage) {
+      if (emailErrorMessage) {
+        // select the email form field message element
+        const emailErrorMessageElement = document.querySelector('.email .dkh-form-field__messages');
         // show email error message to user
+        emailErrorMessageElement.innerText = emailErrorMessage;
       }
 
       if (passowrdErrorMessage) {
+        // select the email form field message element
+        const passwordErrorMessageElement = document.querySelector('.password .dkh-form-field__messages');
         // show password error message to user
+        passwordErrorMessageElement.innerText = passowrdErrorMessage;
       }
     }
 
@@ -246,36 +261,36 @@
     * validate email
     */
     function validateEmail(email) {
-      let errorMessage = '';
-
       // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
       const isValidEmail = /^\S+@\S+$/g
       if (!isValidEmail.test(email)) {
-        errorMessage = 'Please enter a valid email';
+        return 'Please enter a valid email';
       }
 
-      return errorMessage;
+      return '';
     }
 
     /**
     * validate passowrd
     */
-    function validatePassword(password) {
-      let errorMessage = '';
+    function validatePassword(password, minlength) {
+      if (!password) return 'Password is required';
+
+      if (password.length < minlength) {
+        return `Please enter a password that's at least ${minlength} characters long`;
+      }
 
       const hasCapitalLetter = /[A-Z]/g;
       if (!hasCapitalLetter.test(password)) {
-        errorMessage = 'Please use at least one capital letter.';
-        // we can return here since we don't need to conduct additional validations if we've already failed one
-        return errorMessage;
+        return 'Please use at least one capital letter.';
       }
 
       const hasNumber = /\d/g;
       if (!hasNumber.test(password)) {
-        errorMessage = 'Please use at least one number.';
+        return 'Please use at least one number.';
       }
 
-      return errorMessage;
+      return '';
     }
   </script>
 </body>
