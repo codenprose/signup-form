@@ -261,7 +261,8 @@
     * validate email
     */
     function validateEmail(email) {
-      // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+      if (!email) return 'Email is required';
+
       const isValidEmail = /^\S+@\S+$/g
       if (!isValidEmail.test(email)) {
         return 'Please enter a valid email';
